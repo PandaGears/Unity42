@@ -1,0 +1,5 @@
+sceneSetups:
+- path: C:/Users/Tama-Kun/Downloads/unityhome/D00/Assets/ex02/Scenes/ex02.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
