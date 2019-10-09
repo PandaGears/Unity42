@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - John
+  - Claire
+  - Thomas
+  - Thomas_exit
+  - John_exit
+  - Claire_exit
+  - teleport_11_-4
+  - button
+  - wall
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - blue
+  - yellow
+  - red
+  - blueP
+  - yellowP
+  - redP
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: blue
+    uniqueID: 255995077
+    locked: 0
+  - name: yellow
+    uniqueID: 1094682645
+    locked: 0
+  - name: red
+    uniqueID: 1580698071
+    locked: 0
+  - name: blueP
+    uniqueID: 3583929887
+    locked: 0
+  - name: yellowP
+    uniqueID: 2146842669
+    locked: 0
+  - name: redP
+    uniqueID: 2503802357
+    locked: 0
