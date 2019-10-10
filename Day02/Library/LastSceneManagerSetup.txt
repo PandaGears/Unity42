@@ -1,0 +1,6 @@
+sceneSetups:
+- path: C:/Users/Tama-Kun/Downloads/Piscine-Unity-master/D03 - Build & Advanced GUI
+    & GUI 2D/Assets/Scenes/ex00.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
