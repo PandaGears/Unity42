@@ -28,6 +28,8 @@ public class player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		StartCoroutine ("walkSound");
+
 	}
 
 	public bool playerHasKey() {
@@ -52,7 +54,7 @@ public class player : MonoBehaviour {
 			StartCoroutine (waitBeforeDelete (other.gameObject));
 			haskey = true;
 			GameManager.gm.setMessage ("You got the key ! Now you have to find the hidden papers.");
-		} else if (other.gameObject.tag == "light" || other.gameObject.tag == "laser" ) {
+		} else if (other.gameObject.tag == "light") {
 			playerSpotted (.5f);
 		}
 
@@ -62,7 +64,27 @@ public class player : MonoBehaviour {
 		isTriggered = false;
 	}
 
+
 	void Update () {
+
+		bar.size = invisible / 100;
+
+		if (isRunning)
+			playerSpotted (1);
+		else
+			if (invisible > 0 && !isRunning)
+				invisible -= .5f;
+
+		if (Input.GetKey (KeyCode.LeftShift)) {
+			speed = 10;
+			isRunning = true;
+			currentWalkSpeed = currentWalkSpeedEnum.speed;
+		}
+		else {
+			speed = 5;
+			isRunning = false;
+			currentWalkSpeed = currentWalkSpeedEnum.normal;
+		}
 
 		if (invisible >= 75 && currentAudio != currentAudioEnum.panic) {
 			AudioSource audio = GetComponent<AudioSource> ();
@@ -77,17 +99,48 @@ public class player : MonoBehaviour {
 		}
 
 		if (invisible >= 100) {
-			GameManager.gm.setMessage ("You have been spotted, RIP in Pepperonis.");
+			GameManager.gm.setMessage ("You have been spotted, RIP in peace.");
 			StartCoroutine ("displayMessageBeforeRestart");
 		}
 
+		if (Input.GetKey (KeyCode.W))
+			transform.Translate (Vector3.forward * speed * Time.deltaTime);
+		if (Input.GetKey(KeyCode.S))
+			transform.Translate (Vector3.back * speed * Time.deltaTime);
+		if (Input.GetKey(KeyCode.A))
+			transform.Translate (Vector3.left * speed * Time.deltaTime);
+		if (Input.GetKey(KeyCode.D))
+			transform.Translate (Vector3.right * speed * Time.deltaTime);
+
+	
+		if (!Input.GetKey (KeyCode.D) && !Input.GetKey (KeyCode.A) && !Input.GetKey (KeyCode.S) && !Input.GetKey (KeyCode.W)) {
+			currentWalkSpeed = currentWalkSpeedEnum.stay;
+		}
+	}
 
 	IEnumerator displayMessageBeforeRestart() {
 		yield return new WaitForSeconds (4);
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
 
 	}
-}
+
+
+	IEnumerator walkSound() {
+		while (true) {
+			float wait = 0;
+			if (currentWalkSpeed == currentWalkSpeedEnum.normal) {
+				Debug.Log ("walk sound");
+				foot.GetComponent<AudioSource> ().Play ();
+				wait = .5f;
+			} else if (currentWalkSpeed == currentWalkSpeedEnum.speed) {
+				foot.GetComponent<AudioSource> ().Play ();
+				wait = 0.2f;
+			} else {
+				foot.GetComponent<AudioSource> ().Stop ();
+			}
+			yield return new WaitForSeconds(wait);
+		}
+	}
 
 	public void playerSpotted(float value) {
 		invisible += value;
